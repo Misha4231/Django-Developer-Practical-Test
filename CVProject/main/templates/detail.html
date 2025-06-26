@@ -4,7 +4,14 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h2 class="mb-4">{{ cv.firstname }} {{ cv.lastname }}</h2>
+        <div class="d-flex justify-content-between">
+            <h2 class="mb-4">{{ cv.firstname }} {{ cv.lastname }}</h2>
+            {% if not pdf %}
+                <a href="{% url 'cv-pdf' cv.pk %}">
+                    <button class="btn btn-primary">Download PDF</button>
+                </a>
+            {% endif %}
+        </div>
         
         <div class="list-group-item">
             <p class="mb-1"><strong>Skills:</strong> {{ cv.skills }}</p>
