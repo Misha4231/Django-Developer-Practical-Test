@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}CVs{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">CV Directory</h2>
+        
+        {% if cv_list %}
+            <div class="list-group">
+                {% for cv in cv_list %}
+                    <div class="list-group-item mb-4">
+                        <h5 class="mb-1">
+                            <a href="{% url 'cv' cv.pk %}">{{ cv.firstname }} {{ cv.lastname }}</a>
+                        </h5>
+                        <p class="mb-1"><strong>Skills:</strong> {{ cv.skills }}</p>
+                        <p class="mb-1"><strong>Projects:</strong> {{ cv.projects }}</p>
+                        <p class="mb-1"><strong>Bio:</strong> {{ cv.bio }}</p>
+                        <p class="mb-1"><strong>Contacts:</strong> {{ cv.contacts }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No CVs found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

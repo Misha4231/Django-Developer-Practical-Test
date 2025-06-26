@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ cv.firstname }} {{ cv.lastname }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">{{ cv.firstname }} {{ cv.lastname }}</h2>
+        
+        <div class="list-group-item">
+            <p class="mb-1"><strong>Skills:</strong> {{ cv.skills }}</p>
+            <p class="mb-1"><strong>Projects:</strong> {{ cv.projects }}</p>
+            <p class="mb-1"><strong>Bio:</strong> {{ cv.bio }}</p>
+            <p class="mb-1"><strong>Contacts:</strong> {{ cv.contacts }}</p>
+        </div>
+    </div>
+{% endblock %}
