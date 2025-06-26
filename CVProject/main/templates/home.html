@@ -9,8 +9,10 @@
         {% if cv_list %}
             <div class="list-group">
                 {% for cv in cv_list %}
-                    <div class="list-group-item">
-                        <h5 class="mb-1">{{ cv.firstname }} {{ cv.lastname }}</h5>
+                    <div class="list-group-item mb-4">
+                        <h5 class="mb-1">
+                            <a href="{% url 'cv' cv.pk %}">{{ cv.firstname }} {{ cv.lastname }}</a>
+                        </h5>
                         <p class="mb-1"><strong>Skills:</strong> {{ cv.skills }}</p>
                         <p class="mb-1"><strong>Projects:</strong> {{ cv.projects }}</p>
                         <p class="mb-1"><strong>Bio:</strong> {{ cv.bio }}</p>
