@@ -19,6 +19,26 @@ pip install poetry
 poetry install
 ```
 
+## 3. Load Sample Data (Fixture)
+
+To load a sample CV into the database:
+
+1. Go to django project directory:
+```bash
+cd CVProject
+````
+
+2. Make sure you've applied migrations:
+```bash
+python manage.py migrate
+````
+
+3. Load the fixture:
+
+```bash
+python manage.py loaddata cv-fixture.json
+```
+
 
 Welcome! This test will help us see how you structure a Django project, work with various tools, and handle common tasks in web development. Follow the instructions step by step. Good luck!
 
