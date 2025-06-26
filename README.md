@@ -39,8 +39,14 @@ python manage.py migrate
 python manage.py loaddata cv-fixture.json
 ```
 
+## ✅ Running Tests
 
-Welcome! This test will help us see how you structure a Django project, work with various tools, and handle common tasks in web development. Follow the instructions step by step. Good luck!
+To run the test suite for the project:
+```bash
+python manage.py test
+```
+
+
 
 ## Requirements
 
