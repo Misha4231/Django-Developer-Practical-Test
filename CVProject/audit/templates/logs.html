@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Logs{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-4">Logs</h2>
+        
+        {% if logs %}
+            <div class="list-group">
+                {% for log in logs %}
+                    <div class="list-group-item mb-4">
+                        <h5 class="mb-1">{{ log.path }}</h5>
+                        <p class="mb-1"><strong>Timestamp:</strong> {{ log.timestamp }}</p>
+                        <p class="mb-1"><strong>Method:</strong> {{ log.HTTP_method }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No logs found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
