@@ -33,3 +33,7 @@ def render_cv_pdf(request: HttpRequest, id: int):
 class CVViewSet(ModelViewSet):
     queryset = CV.objects.all()
     serializer_class = CVSerializer
+
+
+def settings_view(request: HttpRequest):
+    return render(request, 'settings.html')

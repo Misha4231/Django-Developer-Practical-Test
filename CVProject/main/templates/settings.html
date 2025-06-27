@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Django Settings</h2>
+    <ul class="list-group">
+        {% for key, value in SETTINGS.items %}
+            <li><strong>{{ key }}</strong>: {{ value }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
