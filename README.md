@@ -2,49 +2,121 @@
 
 ## Setup
 
-### 1. Setup **pyenv**
-1. Follow instructions for your OS provided in official repository: [https://github.com/pyenv/pyenv?tab=readme-ov-file](https://github.com/pyenv/pyenv?tab=readme-ov-file)
-2. Install python 
-```bash
-pyenv install 3.11.8
-```
+## 🚀 Running Without Docker
 
-### 2. Setup **poetry**
-1. Install poetry
-```bash
-pip install poetry
-```
-2. Install dependency
-```bash
-poetry install
-```
+If you prefer running **without Docker**, you need to have:
 
-## 3. Load Sample Data (Fixture)
+✅ **PostgreSQL** running locally with the credentials you set in `.env`.
+✅ **Redis** running locally on the default port (`6379`).
+✅ A **Celery worker** running to handle background tasks.
 
-To load a sample CV into the database:
+### 1️⃣ Setup **pyenv** (optional, for local Python isolation)
 
-1. Go to django project directory:
+1. Follow instructions for your OS from the official repository: [pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file)
+2. Install Python:
+
+   ```bash
+   pyenv install 3.11.8
+   ```
+3. Set the local Python version:
+
+   ```bash
+   pyenv local 3.11.8
+   ```
+
+---
+
+### 2️⃣ Setup **poetry**
+
+1. Install Poetry:
+
+   ```bash
+   pip install poetry
+   ```
+2. Install dependencies:
+
+   ```bash
+   poetry install
+   ```
+
+---
+
+### 3️⃣ Environment Variables
+
+1. Copy the example environment file:
+
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` and specify:
+
+   * **PostgreSQL credentials** (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`).
+   * **SMTP credentials** (`EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`).
+   * Your **API key** for OpenRouter or OpenAI (`OPENROUTER_AI_KEY`).
+
+---
+
+## Database & Sample Data
+
+### 1. Apply migrations:
+
 ```bash
 cd CVProject
-````
-
-2. Make sure you've applied migrations:
-```bash
 python manage.py migrate
-````
+```
 
-3. Load the fixture:
+### 2. Load the fixture data:
 
 ```bash
 python manage.py loaddata cv-fixture.json
 ```
 
+This will load a sample CV into the database for testing.
+
+---
+
+## Celery Worker
+
+### Start the Celery worker:
+
+```bash
+poetry run celery -A CVProject worker --loglevel=info
+```
+
+## Django development server:
+
+```bash
+python manage.py runserver
+```
+
+---
+
+## 🐳 Using Docker Compose
+
+A **`docker-compose.yml`** is included, which runs:
+
+* PostgreSQL
+* Redis
+* Django app (served via Gunicorn)
+* Celery worker
+
+To build and start everything:
+
+```bash
+docker compose up --build
+```
+
+---
+
 ## ✅ Running Tests
 
-To run the test suite for the project:
+To run the test suite:
+
 ```bash
 python manage.py test
 ```
+
+
 
 
 
