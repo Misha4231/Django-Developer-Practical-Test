@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'test-secret')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = DJANGO_ENV == 'development'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.getenv('DOMAIN')]
 
 
 # Application definition
