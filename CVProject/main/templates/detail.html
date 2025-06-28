@@ -7,26 +7,37 @@
         <div class="d-flex justify-content-between">
             <h2 class="mb-4">{{ cv.firstname }} {{ cv.lastname }}</h2>
             {% if not pdf %}
-                <a href="{% url 'cv-pdf' cv.pk %}">
+                <a href="{% url 'cv-pdf' cv.pk %}{% if selected_language %}?language={{ selected_language }}{% endif %}">
                     <button class="btn btn-primary">Download PDF</button>
                 </a>
             {% endif %}
         </div>
         
-        <div class="list-group-item">
-            <p class="mb-1"><strong>Skills:</strong> {{ cv.skills }}</p>
-            <p class="mb-1"><strong>Projects:</strong> {{ cv.projects }}</p>
-            <p class="mb-1"><strong>Bio:</strong> {{ cv.bio }}</p>
-            <p class="mb-1"><strong>Contacts:</strong> {{ cv.contacts }}</p>
-        </div>
-
-        {% if not pdf %}
-            <form action="" method="post" class="mt-5">
-                {% csrf_token %}
-                {{ form }}
-
-                <button class="btn btn-primary" type="submit">Send PDF to Email</button>
-            </form>
+        {% if translated_content %}
+             {{ translated_content|safe }}
+        {% else %}
+            <div class="list-group-item">
+                <p class="mb-1"><strong>Skills:</strong> {{ cv.skills }}</p>
+                <p class="mb-1"><strong>Projects:</strong> {{ cv.projects }}</p>
+                <p class="mb-1"><strong>Bio:</strong> {{ cv.bio }}</p>
+                <p class="mb-1"><strong>Contacts:</strong> {{ cv.contacts }}</p>
+            </div>
         {% endif %}
+
+        <div class="d-flex justify-content-between mt-5">
+            {% if not pdf %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+
+                    <button class="btn btn-primary" type="submit">Send PDF to Email</button>
+                </form>
+            
+                <form method="get">
+                    {{ translate_form }}
+                    <button class="btn btn-primary" type="submit">Translate</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
