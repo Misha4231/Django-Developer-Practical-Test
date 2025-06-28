@@ -35,3 +35,4 @@ RUN chmod +x /app/entrypoint.sh
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 
+CMD ["poetry", "run", "gunicorn", "CVProject.wsgi:application", "--bind", "0.0.0.0:8000"]

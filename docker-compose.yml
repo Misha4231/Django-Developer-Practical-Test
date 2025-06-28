@@ -12,6 +12,7 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+      - redis
   db:
     image: postgres:16
     env_file:
@@ -19,6 +20,23 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
+  redis:
+    restart: always
+    image: redis:7.0.5-alpine
+    expose:
+      - 6379
+  celery:
+    build:
+      context: .
+    restart: always
+    command: poetry run celery -A CVProject worker --loglevel=info
+    env_file:
+     - .env
+    environment:
+      - DJANGO_ENV=production
+    depends_on:
+     - redis
+     - db
 
 volumes:
   postgres_data:
