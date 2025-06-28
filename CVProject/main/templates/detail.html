@@ -19,5 +19,14 @@
             <p class="mb-1"><strong>Bio:</strong> {{ cv.bio }}</p>
             <p class="mb-1"><strong>Contacts:</strong> {{ cv.contacts }}</p>
         </div>
+
+        {% if not pdf %}
+            <form action="" method="post" class="mt-5">
+                {% csrf_token %}
+                {{ form }}
+
+                <button class="btn btn-primary" type="submit">Send PDF to Email</button>
+            </form>
+        {% endif %}
     </div>
 {% endblock %}
