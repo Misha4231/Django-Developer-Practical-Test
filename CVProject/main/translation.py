@@ -1,6 +1,7 @@
 import json
 import requests
 import os
+from django.core.cache import cache
 
 from .models import CV
 
@@ -50,6 +51,16 @@ def build_cv_html(cv: CV):
 def handle_translation(cv: CV, language: str):
     if not language:
         return None
-    content_to_translate = build_cv_html(cv)
-    translated = translate_content(content_to_translate, language)
-    return clean_fenced_code_blocks(translated)
+    
+    # Redis caching to save api tokens
+    cache_key = f"cv_translation_{cv.pk}_{language}"
+    translated = cache.get(cache_key)
+
+    if translated is None:
+        content_to_translate = build_cv_html(cv)
+        translated = clean_fenced_code_blocks(translate_content(content_to_translate, language))
+
+        # Cache for 24 hours
+        cache.set(cache_key, translated, timeout=60*60*24)
+
+    return translated
